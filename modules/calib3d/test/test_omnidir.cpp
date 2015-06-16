@@ -128,7 +128,7 @@ TEST_F(omnidirTest, jacobian)
     r.fill(D, cv::RNG::NORMAL, 0, 1);
     D*= 0.5;
 
-    xi = abs(r.gaussian(1));
+    xi = std::abs(r.gaussian(1));
     s = 0.001 * r.gaussian(1);
 
     cv::Mat x1, x2, xpred;
@@ -168,7 +168,7 @@ TEST_F(omnidirTest, jacobian)
 
     // Test on s
     double ds = r.gaussian(1);
-    ds *= 1e-9 * abs(s);
+    ds *= 1e-9 * std::abs(s);
     double s2 = s + ds;
     K2 = K;
     K2(0,1) = s2;
@@ -187,7 +187,7 @@ TEST_F(omnidirTest, jacobian)
 
     // Test on xi
     double dxi = r.gaussian(1);
-    dxi *= 1e-9 * abs(xi);
+    dxi *= 1e-9 * std::abs(xi);
     double xi2 = xi + dxi;
     cv::omnidir::projectPoints(X, x2, om, T, K, xi2, D, cv::noArray());
     xpred = x1 + cv::Mat(jacobians.colRange(11,12)*dxi).reshape(2, 1);
